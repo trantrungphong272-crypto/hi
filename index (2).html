@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu về tôi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --bg-body: linear-gradient(145deg, #f8faff 0%, #e9eff7 100%);
+            --bg-card: rgba(255, 255, 255, 0.7);
+            --border-card: rgba(255, 255, 255, 0.5);
+            --text-primary: #1a2639;
+            --text-secondary: #2d3a5a;
+            --text-muted: #4c5b7a;
+            --bg-bio: rgba(255, 255, 255, 0.5);
+            --border-bio: rgba(255, 255, 255, 0.8);
+            --bg-skill: white;
+            --text-skill: #1a2b4a;
+            --border-skill: rgba(74, 124, 247, 0.15);
+            --bg-hobby: rgba(255, 255, 255, 0.4);
+            --border-hobby: rgba(255, 255, 255, 0.6);
+            --shadow-card: 0 30px 50px rgba(0, 20, 40, 0.2), 0 10px 20px rgba(0, 0, 0, 0.05);
+            --shadow-avatar: 0 12px 25px rgba(74, 124, 247, 0.3);
+            --social-bg: white;
+            --social-color: #1f2a44;
+            --social-border: rgba(255, 255, 255, 0.7);
+            --footer-border: rgba(0, 0, 0, 0.03);
+            --badge-bg: rgba(74, 124, 247, 0.15);
+            --badge-color: #2c3e8a;
+            --badge-border: rgba(74, 124, 247, 0.2);
+            --location-color: #2c3e7a;
+            --li-border: rgba(0, 0, 0, 0.03);
+            --icon-color: #4a7cf7;
+            --icon-secondary: #6c5ce7;
+            --heart-color: #e74c6f;
+            --blockquote-color: #1a2844;
+        }
+
+        /* Theme tối - khi thêm class "dark-mode" vào body */
+        body.dark-mode {
+            --bg-body: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            --bg-card: rgba(30, 30, 60, 0.85);
+            --border-card: rgba(255, 255, 255, 0.1);
+            --text-primary: #e8e8f0;
+            --text-secondary: #b8b8d0;
+            --text-muted: #8888a8;
+            --bg-bio: rgba(40, 40, 80, 0.6);
+            --border-bio: rgba(255, 255, 255, 0.08);
+            --bg-skill: #2a2a5a;
+            --text-skill: #d0d0e8;
+            --border-skill: rgba(74, 124, 247, 0.3);
+            --bg-hobby: rgba(40, 40, 80, 0.5);
+            --border-hobby: rgba(255, 255, 255, 0.08);
+            --shadow-card: 0 30px 50px rgba(0, 0, 0, 0.6), 0 10px 20px rgba(0, 0, 0, 0.3);
+            --shadow-avatar: 0 12px 25px rgba(74, 124, 247, 0.2);
+            --social-bg: #2a2a5a;
+            --social-color: #d0d0e8;
+            --social-border: rgba(255, 255, 255, 0.1);
+            --footer-border: rgba(255, 255, 255, 0.05);
+            --badge-bg: rgba(74, 124, 247, 0.2);
+            --badge-color: #8899dd;
+            --badge-border: rgba(74, 124, 247, 0.3);
+            --location-color: #8899dd;
+            --li-border: rgba(255, 255, 255, 0.05);
+            --icon-color: #6c8cff;
+            --icon-secondary: #a78bfa;
+            --heart-color: #f4727a;
+            --blockquote-color: #c8c8e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-body);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            transition: background 0.4s ease;
+        }
+
+        .card {
+            max-width: 1000px;
+            width: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 48px;
+            padding: 2.5rem 2.8rem;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border-card);
+            transition: all 0.4s ease;
+        }
+
+        @media (max-width: 640px) {
+            .card {
+                padding: 2rem 1.5rem;
+                border-radius: 32px;
+            }
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 50px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: var(--shadow-card);
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+            color: var(--icon-color);
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.2rem;
+        }
+
+        .avatar-wrapper {
+            flex-shrink: 0;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4a7cf7, #6c5ce7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-avatar);
+            border: 4px solid var(--bg-card);
+            overflow: hidden;
+            transition: border-color 0.4s ease;
+        }
+
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .avatar-wrapper i {
+            display: none;
+        }
+
+        .name-title h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            transition: color 0.4s ease;
+        }
+
+        .name-title .badge {
+            display: inline-block;
+            background: var(--badge-bg);
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            color: var(--badge-color);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 0.4rem;
+            border: 1px solid var(--badge-border);
+            backdrop-filter: blur(4px);
+            transition: all 0.4s ease;
+        }
+
+        .name-title .badge i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+
+        .name-title .location {
+            margin-top: 0.5rem;
+            font-size: 1rem;
+            color: var(--location-color);
+            transition: color 0.4s ease;
+        }
+
+        .name-title .location i {
+            margin-right: 6px;
+            color: var(--icon-color);
+        }
+
+        @media (max-width: 500px) {
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .name-title h1 {
+                font-size: 2.2rem;
+            }
+        }
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2rem;
+            margin: 2.2rem 0 2.5rem;
+        }
+
+        @media (max-width: 700px) {
+            .intro-grid {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+        }
+
+        .bio-box {
+            background: var(--bg-bio);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            border: 1px solid var(--border-bio);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            transition: all 0.4s ease;
+        }
+
+        .bio-box h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            transition: color 0.4s ease;
+        }
+
+        .bio-box h3 i {
+            color: var(--icon-color);
+            font-size: 1.3rem;
+        }
+
+        .bio-box p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1.02rem;
+            transition: color 0.4s ease;
+        }
+
+        .bio-box ul {
+            list-style: none;
+            margin-top: 0.8rem;
+        }
+
+        .bio-box ul li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--li-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+            transition: all 0.4s ease;
+        }
+
+        .bio-box ul li i {
+            width: 24px;
+            color: var(--icon-color);
+            font-size: 1.1rem;
+        }
+
+        .bio-box ul li:last-child {
+            border-bottom: none;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 0.8rem;
+        }
+
+        .skill-tags span {
+            background: var(--bg-skill);
+            padding: 0.35rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-skill);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            border: 1px solid var(--border-skill);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tags span:hover {
+            background: var(--icon-color);
+            color: white;
+            border-color: var(--icon-color);
+            transform: scale(1.02);
+        }
+        .quote-hobby {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0 2.2rem;
+        }
+
+        @media (max-width: 600px) {
+            .quote-hobby {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hobby-box, .quote-box {
+            background: var(--bg-hobby);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 24px;
+            padding: 1.2rem 1.8rem;
+            border: 1px solid var(--border-hobby);
+            transition: all 0.4s ease;
+        }
+
+        .hobby-box h4, .quote-box h4 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            transition: color 0.4s ease;
+        }
+
+        .hobby-box h4 i, .quote-box h4 i {
+            color: var(--icon-secondary);
+        }
+
+        .hobby-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .hobby-items span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            transition: color 0.4s ease;
+        }
+
+        .hobby-items span i {
+            color: var(--icon-color);
+            font-size: 0.9rem;
+        }
+
+        .quote-box blockquote {
+            font-style: italic;
+            color: var(--blockquote-color);
+            font-size: 1.1rem;
+            line-height: 1.5;
+            padding: 0.2rem 0;
+            border-left: 4px solid var(--icon-color);
+            padding-left: 1.2rem;
+            transition: color 0.4s ease, border-color 0.4s ease;
+        }
+
+        .quote-box blockquote::before {
+            content: "“";
+            font-size: 1.8rem;
+            color: var(--icon-color);
+            margin-right: 4px;
+        }
+        .social-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 54px;
+            height: 54px;
+            border-radius: 30px;
+            background: var(--social-bg);
+            color: var(--social-color);
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+            border: 1px solid var(--social-border);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            background: var(--icon-color);
+            color: white;
+            border-color: var(--icon-color);
+            box-shadow: 0 12px 24px rgba(74, 124, 247, 0.25);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-note {
+            text-align: center;
+            margin-top: 2.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+            border-top: 1px solid var(--footer-border);
+            padding-top: 1.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .footer-note i {
+            color: var(--heart-color);
+            margin: 0 4px;
+        }
+        @media (max-width: 768px) {
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+            .theme-toggle i {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Chuyển đổi giao diện">
+        <i class="fas fa-moon" id="themeIcon"></i>
+        <span id="themeLabel">Tối</span>
+    </button>
+
+    <div class="card">
+        <div class="profile-header">
+            <div class="avatar-wrapper">
+                <img src="https://scontent.fcxr1-1.fna.fbcdn.net/v/t39.30808-6/734808130_122208508682336813_8755987331784634895_n.jpg?stp=dst-jpg_tt6&cstp=mx1024x1024&ctp=s1024x1024&_nc_cat=101&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeHg3yAaFaaXODreAaFFa3w0oSLJKH5lDHShIskofmUMdBghb8VPGFJLQNl8V97droWaR6p4AYjmv7LXYFqbVDvr&_nc_ohc=A1KVws-VuIgQ7kNvwFFi73E&_nc_oc=AdrtMfIicG7zDkN8whZGDogXZnjGPIpnzR_xjkb8K6tzqMOSyA5v1aojVDCuDKscEqGlidvTEfI1MzqnzikfxKjD&_nc_zt=23&_nc_ht=scontent.fcxr1-1.fna&_nc_gid=grbWxE2YlnXuWhKhF-k5-Q&_nc_ss=7b2a8&oh=00_AQF1rEz6alKgZPsLOs_sQi9Ef24GBrM8E3JO4yFolljOpw&oe=6A96C51E" alt="Ảnh đại diện">
+            </div>
+            <div class="name-title">
+                <h1>Trần Trung Phong</h1>
+                <span class="badge"><i class="fas fa-code"></i> Fullstack Developer &amp; Creator</span>
+                <div class="location">
+                    <i class="fas fa-map-pin"></i> x.Cam Lâm, Việt Nam
+                </div>
+            </div>
+        </div>
+        <div class="intro-grid">
+            <div class="bio-box">
+                <h3><i class="fas fa-user-astronaut"></i> Vài dòng về tôi</h3>
+                <p>Xin chào! mình là 1 học sinh cấp 2 mình có đam mê viết code để giải những bài toán và lập trình những thứ hữu ích cho xã hội . 
+                Tôi mới học được 2 năm .</p>
+                <p style="margin-top: 1rem;"><i class="fas fa-quote-left" style="color: var(--icon-color); opacity: 0.6; margin-right: 4px;"></i> 
+                "Biến ý tưởng thành hiện thực qua từng dòng code."</p>
+            </div>
+
+            <div class="bio-box">
+                <h3><i class="fas fa-bolt"></i> Thông tin nhanh</h3>
+                <ul>
+                    <li><i class="fas fa-calendar-alt"></i> 13 tuổi</li>
+                    <li><i class="fas fa-graduation-cap"></i>có ước mơ làm IT</li>
+                    <li><i class="fas fa-briefcase"></i>học code được 2 năm</li>
+                    <li><i class="fas fa-language"></i> thành thạo ngôn ngữ Tiếng Việt và đang học thêm tiếng anh</li>
+                </ul>
+                <div style="margin-top: 1.2rem;">
+                    <span style="font-weight: 500; color: var(--text-primary); display: block; margin-bottom: 6px; transition: color 0.4s ease;">
+                        <i class="fas fa-cog" style="margin-right: 8px; color: var(--icon-color);"></i>Kỹ năng chính
+                    </span>
+                    <div class="skill-tags">
+                        <span>đá bóng</span>
+                        <span>cầu lông</span>
+                        <span>viết code bằng c++ và python</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="quote-hobby">
+            <div class="hobby-box">
+                <h4><i class="fas fa-heart" style="color: var(--heart-color);"></i> Sở thích</h4>
+                <div class="hobby-items">
+                    <span><i class="fas fa-futbol"></i> bóng </span>
+                    <span><i class="fas fa-headphones"></i>nghe nhạc</span>
+                    <span><i class="fas fa-camera-retro"></i> Chụp ảnh</span>
+                </div>
+            </div>
+            <div class="quote-box">
+                <h4><i class="fas fa-quote-right"></i> Câu nói tâm đắc</h4>
+                <blockquote>
+                    Đừng chỉ viết code để chạy, hãy viết code để người khác hiểu và cảm nhận."
+                </blockquote>
+            </div>
+        </div>
+        <div class="social-links">
+            <a href="https://www.facebook.com/tran.phong.204376" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+             </a>
+            <a href="https://www.tiktok.com/@kenken8297" target="_blank" aria-label="Tiktok"><i class="fab fa-tiktok"></i>
+             </a>
+            <a href="https://github.com/trantrungphong272-crypto" target="_blank" aria-label="github"><i class="fab fa-github"></i>
+        </div>
+
+        <div class="footer-note">
+            <i class="fas fa-code"></i> với <i class="fas fa-heart"></i> · Cảm ơn bạn đã ghé thăm!
+        </div>
+    </div>
+    <script>
+        const toggleBtn = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeLabel = document.getElementById('themeLabel');
+        let isDark = localStorage.getItem('theme') === 'dark';
+        function applyTheme(dark) {
+            if (dark) {
+                document.body.classList.add('dark-mode');
+                themeIcon.className = 'fas fa-sun';
+                themeLabel.textContent = 'Sáng';
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeIcon.className = 'fas fa-moon';
+                themeLabel.textContent = 'Tối';
+            }
+            localStorage.setItem('theme', dark ? 'dark' : 'light');
+        }
+        applyTheme(isDark);
+        toggleBtn.addEventListener('click', () => {
+            isDark = !isDark;
+            applyTheme(isDark);
+        });
+    </script>
+
+</body>
+</html>
